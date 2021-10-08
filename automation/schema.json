@@ -1,0 +1,49 @@
+{
+	"name": "automation",
+	"description": "IOTA Smart Contract for interaction with autonomous mashines",
+	"structs": {
+		"Task": {
+			"machine_id": "AgentID // machinhe that is beign called",
+    		"issuer": "AgentID // agent calling the machine",
+    		"task": "String // task to be done",
+    		"amount": "Int64 // amount in iotas beign offered for task"
+		}
+	},
+	"typedefs": {},
+	"state": {
+		"owner": "AgentID // current owner of this smart contract",
+		"numberOfTasks": "Int16 // total number of tasks"
+	},
+	"funcs": {
+		"init": {
+			"params": {
+				"owner": "?AgentID // optional owner of this smart contract"
+			}
+		},
+		"requestMachine": {
+			"params": {
+				"machineId" :"AgentID // machinhe that is beign called",
+				"task" :"Task // task that is requested to be done by machine"
+			}
+		},
+		"machineResponse": {
+			"params": {
+				"transactionId" :"String // id of roverCall smart contract inteaction",
+				"response" :"Int16 // 0 for job reyection, 1 for job acceptance. Need boolean type here"
+			}
+		},
+		"machineFinnishTask": {
+			"params": {
+				"taskId" :"Int32 // id of task",
+				"response" :"Int16 // 0 for job reyection, 1 for job acceptance. Need boolean type here"
+			}
+		}
+	},
+	"views": {
+		"getOwner": {
+			"results": {
+				"owner": "AgentID // current owner of this smart contract"
+			}
+		}
+	}
+}
