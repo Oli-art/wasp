@@ -4,6 +4,7 @@
 use wasmlib::*;
 
 use crate::*;
+use crate::types::*;
 
 pub fn func_init(ctx: &ScFuncContext, f: &InitContext) {
     if f.params.owner().exists() {
@@ -13,8 +14,13 @@ pub fn func_init(ctx: &ScFuncContext, f: &InitContext) {
     f.state.owner().set_value(&ctx.contract_creator());
 }
 
-pub fn func_set_owner(_ctx: &ScFuncContext, f: &SetOwnerContext) {
-    f.state.owner().set_value(&f.params.owner().value());
+pub fn func_machine_finnish_task(_ctx: &ScFuncContext, _f: &MachineFinnishTaskContext) {
+}
+
+pub fn func_machine_response(_ctx: &ScFuncContext, _f: &MachineResponseContext) {
+}
+
+pub fn func_request_machine(_ctx: &ScFuncContext, _f: &RequestMachineContext) {
 }
 
 pub fn view_get_owner(_ctx: &ScViewContext, f: &GetOwnerContext) {

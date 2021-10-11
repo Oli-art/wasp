@@ -13,6 +13,7 @@ use wasmlib::host::*;
 
 use crate::*;
 use crate::keys::*;
+use crate::types::*;
 
 #[derive(Clone, Copy)]
 pub struct ImmutableautomationState {
@@ -20,6 +21,10 @@ pub struct ImmutableautomationState {
 }
 
 impl ImmutableautomationState {
+    pub fn number_of_tasks(&self) -> ScImmutableInt16 {
+        ScImmutableInt16::new(self.id, idx_map(IDX_STATE_NUMBER_OF_TASKS))
+    }
+
     pub fn owner(&self) -> ScImmutableAgentID {
         ScImmutableAgentID::new(self.id, idx_map(IDX_STATE_OWNER))
     }
@@ -31,6 +36,10 @@ pub struct MutableautomationState {
 }
 
 impl MutableautomationState {
+    pub fn number_of_tasks(&self) -> ScMutableInt16 {
+        ScMutableInt16::new(self.id, idx_map(IDX_STATE_NUMBER_OF_TASKS))
+    }
+
     pub fn owner(&self) -> ScMutableAgentID {
         ScMutableAgentID::new(self.id, idx_map(IDX_STATE_OWNER))
     }

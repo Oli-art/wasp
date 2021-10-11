@@ -1,6 +1,6 @@
 [package]
 name = "automation"
-description = "automation description"
+description = "IOTA Smart Contract for interaction with autonomous mashines"
 license = "Apache-2.0"
 version = "0.1.0"
 authors = ["Eric Hop <eric@iota.org>"]

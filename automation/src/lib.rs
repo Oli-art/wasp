@@ -27,13 +27,16 @@ mod keys;
 mod params;
 mod results;
 mod state;
+mod types;
 mod automation;
 
 #[no_mangle]
 fn on_load() {
     let exports = ScExports::new();
     exports.add_func(FUNC_INIT, func_init_thunk);
-    exports.add_func(FUNC_SET_OWNER, func_set_owner_thunk);
+    exports.add_func(FUNC_MACHINE_FINNISH_TASK, func_machine_finnish_task_thunk);
+    exports.add_func(FUNC_MACHINE_RESPONSE, func_machine_response_thunk);
+    exports.add_func(FUNC_REQUEST_MACHINE, func_request_machine_thunk);
     exports.add_view(VIEW_GET_OWNER, view_get_owner_thunk);
 
     unsafe {
@@ -62,29 +65,67 @@ fn func_init_thunk(ctx: &ScFuncContext) {
     ctx.log("automation.funcInit ok");
 }
 
-pub struct SetOwnerContext {
-    params: ImmutableSetOwnerParams,
+pub struct MachineFinnishTaskContext {
+    params: ImmutableMachineFinnishTaskParams,
     state:  MutableautomationState,
 }
 
-fn func_set_owner_thunk(ctx: &ScFuncContext) {
-    ctx.log("automation.funcSetOwner");
-    // current owner of this smart contract
-    let access = ctx.state().get_agent_id("owner");
-    ctx.require(access.exists(), "access not set: owner");
-    ctx.require(ctx.caller() == access.value(), "no permission");
-
-    let f = SetOwnerContext {
-        params: ImmutableSetOwnerParams {
+fn func_machine_finnish_task_thunk(ctx: &ScFuncContext) {
+    ctx.log("automation.funcMachineFinnishTask");
+    let f = MachineFinnishTaskContext {
+        params: ImmutableMachineFinnishTaskParams {
             id: OBJ_ID_PARAMS,
         },
         state: MutableautomationState {
             id: OBJ_ID_STATE,
         },
     };
-    ctx.require(f.params.owner().exists(), "missing mandatory owner");
-    func_set_owner(ctx, &f);
-    ctx.log("automation.funcSetOwner ok");
+    ctx.require(f.params.response().exists(), "missing mandatory response");
+    ctx.require(f.params.task_id().exists(), "missing mandatory taskId");
+    func_machine_finnish_task(ctx, &f);
+    ctx.log("automation.funcMachineFinnishTask ok");
+}
+
+pub struct MachineResponseContext {
+    params: ImmutableMachineResponseParams,
+    state:  MutableautomationState,
+}
+
+fn func_machine_response_thunk(ctx: &ScFuncContext) {
+    ctx.log("automation.funcMachineResponse");
+    let f = MachineResponseContext {
+        params: ImmutableMachineResponseParams {
+            id: OBJ_ID_PARAMS,
+        },
+        state: MutableautomationState {
+            id: OBJ_ID_STATE,
+        },
+    };
+    ctx.require(f.params.response().exists(), "missing mandatory response");
+    ctx.require(f.params.transaction_id().exists(), "missing mandatory transactionId");
+    func_machine_response(ctx, &f);
+    ctx.log("automation.funcMachineResponse ok");
+}
+
+pub struct RequestMachineContext {
+    params: ImmutableRequestMachineParams,
+    state:  MutableautomationState,
+}
+
+fn func_request_machine_thunk(ctx: &ScFuncContext) {
+    ctx.log("automation.funcRequestMachine");
+    let f = RequestMachineContext {
+        params: ImmutableRequestMachineParams {
+            id: OBJ_ID_PARAMS,
+        },
+        state: MutableautomationState {
+            id: OBJ_ID_STATE,
+        },
+    };
+    ctx.require(f.params.machine_id().exists(), "missing mandatory machineId");
+    ctx.require(f.params.task().exists(), "missing mandatory task");
+    func_request_machine(ctx, &f);
+    ctx.log("automation.funcRequestMachine ok");
 }
 
 pub struct GetOwnerContext {

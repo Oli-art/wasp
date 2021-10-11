@@ -12,21 +12,31 @@
 use wasmlib::*;
 
 pub const SC_NAME:        &str = "automation";
-pub const SC_DESCRIPTION: &str = "automation description";
+pub const SC_DESCRIPTION: &str = "IOTA Smart Contract for interaction with autonomous mashines";
 pub const HSC_NAME:       ScHname = ScHname(0x370c9916);
 
-pub const PARAM_OWNER: &str = "owner";
+pub const PARAM_MACHINE_ID:     &str = "machineId";
+pub const PARAM_OWNER:          &str = "owner";
+pub const PARAM_RESPONSE:       &str = "response";
+pub const PARAM_TASK:           &str = "task";
+pub const PARAM_TASK_ID:        &str = "taskId";
+pub const PARAM_TRANSACTION_ID: &str = "transactionId";
 
 pub const RESULT_OWNER: &str = "owner";
 
-pub const STATE_OWNER: &str = "owner";
+pub const STATE_NUMBER_OF_TASKS: &str = "numberOfTasks";
+pub const STATE_OWNER:           &str = "owner";
 
-pub const FUNC_INIT:      &str = "init";
-pub const FUNC_SET_OWNER: &str = "setOwner";
-pub const VIEW_GET_OWNER: &str = "getOwner";
+pub const FUNC_INIT:                 &str = "init";
+pub const FUNC_MACHINE_FINNISH_TASK: &str = "machineFinnishTask";
+pub const FUNC_MACHINE_RESPONSE:     &str = "machineResponse";
+pub const FUNC_REQUEST_MACHINE:      &str = "requestMachine";
+pub const VIEW_GET_OWNER:            &str = "getOwner";
 
-pub const HFUNC_INIT:      ScHname = ScHname(0x1f44d644);
-pub const HFUNC_SET_OWNER: ScHname = ScHname(0x2a15fe7b);
-pub const HVIEW_GET_OWNER: ScHname = ScHname(0x137107a6);
+pub const HFUNC_INIT:                 ScHname = ScHname(0x1f44d644);
+pub const HFUNC_MACHINE_FINNISH_TASK: ScHname = ScHname(0xea91dce8);
+pub const HFUNC_MACHINE_RESPONSE:     ScHname = ScHname(0xa531d2f5);
+pub const HFUNC_REQUEST_MACHINE:      ScHname = ScHname(0x6eeb930c);
+pub const HVIEW_GET_OWNER:            ScHname = ScHname(0x137107a6);
 
 // @formatter:on

@@ -22,9 +22,19 @@ pub struct InitCall {
     pub params: MutableInitParams,
 }
 
-pub struct SetOwnerCall {
+pub struct MachineFinnishTaskCall {
     pub func:   ScFunc,
-    pub params: MutableSetOwnerParams,
+    pub params: MutableMachineFinnishTaskParams,
+}
+
+pub struct MachineResponseCall {
+    pub func:   ScFunc,
+    pub params: MutableMachineResponseParams,
+}
+
+pub struct RequestMachineCall {
+    pub func:   ScFunc,
+    pub params: MutableRequestMachineParams,
 }
 
 pub struct GetOwnerCall {
@@ -44,10 +54,26 @@ impl ScFuncs {
         f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
         f
     }
-    pub fn set_owner(_ctx: & dyn ScFuncCallContext) -> SetOwnerCall {
-        let mut f = SetOwnerCall {
-            func:   ScFunc::new(HSC_NAME, HFUNC_SET_OWNER),
-            params: MutableSetOwnerParams { id: 0 },
+    pub fn machine_finnish_task(_ctx: & dyn ScFuncCallContext) -> MachineFinnishTaskCall {
+        let mut f = MachineFinnishTaskCall {
+            func:   ScFunc::new(HSC_NAME, HFUNC_MACHINE_FINNISH_TASK),
+            params: MutableMachineFinnishTaskParams { id: 0 },
+        };
+        f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
+        f
+    }
+    pub fn machine_response(_ctx: & dyn ScFuncCallContext) -> MachineResponseCall {
+        let mut f = MachineResponseCall {
+            func:   ScFunc::new(HSC_NAME, HFUNC_MACHINE_RESPONSE),
+            params: MutableMachineResponseParams { id: 0 },
+        };
+        f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
+        f
+    }
+    pub fn request_machine(_ctx: & dyn ScFuncCallContext) -> RequestMachineCall {
+        let mut f = RequestMachineCall {
+            func:   ScFunc::new(HSC_NAME, HFUNC_REQUEST_MACHINE),
+            params: MutableRequestMachineParams { id: 0 },
         };
         f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
         f

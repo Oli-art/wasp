@@ -3,7 +3,7 @@
 	"description": "IOTA Smart Contract for interaction with autonomous mashines",
 	"structs": {
 		"Task": {
-			"machine_id": "AgentID // machinhe that is beign called",
+			"machineId": "AgentID // machinhe that is beign called",
     		"issuer": "AgentID // agent calling the machine",
     		"task": "String // task to be done",
     		"amount": "Int64 // amount in iotas beign offered for task"

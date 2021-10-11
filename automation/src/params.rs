@@ -37,23 +37,91 @@ impl MutableInitParams {
 }
 
 #[derive(Clone, Copy)]
-pub struct ImmutableSetOwnerParams {
+pub struct ImmutableMachineFinnishTaskParams {
     pub(crate) id: i32,
 }
 
-impl ImmutableSetOwnerParams {
-    pub fn owner(&self) -> ScImmutableAgentID {
-        ScImmutableAgentID::new(self.id, idx_map(IDX_PARAM_OWNER))
+impl ImmutableMachineFinnishTaskParams {
+    pub fn response(&self) -> ScImmutableInt16 {
+        ScImmutableInt16::new(self.id, idx_map(IDX_PARAM_RESPONSE))
+    }
+
+    pub fn task_id(&self) -> ScImmutableInt32 {
+        ScImmutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
     }
 }
 
 #[derive(Clone, Copy)]
-pub struct MutableSetOwnerParams {
+pub struct MutableMachineFinnishTaskParams {
     pub(crate) id: i32,
 }
 
-impl MutableSetOwnerParams {
-    pub fn owner(&self) -> ScMutableAgentID {
-        ScMutableAgentID::new(self.id, idx_map(IDX_PARAM_OWNER))
+impl MutableMachineFinnishTaskParams {
+    pub fn response(&self) -> ScMutableInt16 {
+        ScMutableInt16::new(self.id, idx_map(IDX_PARAM_RESPONSE))
+    }
+
+    pub fn task_id(&self) -> ScMutableInt32 {
+        ScMutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct ImmutableMachineResponseParams {
+    pub(crate) id: i32,
+}
+
+impl ImmutableMachineResponseParams {
+    pub fn response(&self) -> ScImmutableInt16 {
+        ScImmutableInt16::new(self.id, idx_map(IDX_PARAM_RESPONSE))
+    }
+
+    pub fn transaction_id(&self) -> ScImmutableString {
+        ScImmutableString::new(self.id, idx_map(IDX_PARAM_TRANSACTION_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutableMachineResponseParams {
+    pub(crate) id: i32,
+}
+
+impl MutableMachineResponseParams {
+    pub fn response(&self) -> ScMutableInt16 {
+        ScMutableInt16::new(self.id, idx_map(IDX_PARAM_RESPONSE))
+    }
+
+    pub fn transaction_id(&self) -> ScMutableString {
+        ScMutableString::new(self.id, idx_map(IDX_PARAM_TRANSACTION_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct ImmutableRequestMachineParams {
+    pub(crate) id: i32,
+}
+
+impl ImmutableRequestMachineParams {
+    pub fn machine_id(&self) -> ScImmutableAgentID {
+        ScImmutableAgentID::new(self.id, idx_map(IDX_PARAM_MACHINE_ID))
+    }
+
+    pub fn task(&self) -> ScImmutableTask {
+        ScImmutableTask::new(self.id, idx_map(IDX_PARAM_TASK))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutableRequestMachineParams {
+    pub(crate) id: i32,
+}
+
+impl MutableRequestMachineParams {
+    pub fn machine_id(&self) -> ScMutableAgentID {
+        ScMutableAgentID::new(self.id, idx_map(IDX_PARAM_MACHINE_ID))
+    }
+
+    pub fn task(&self) -> ScMutableTask {
+        ScMutableTask::new(self.id, idx_map(IDX_PARAM_TASK))
     }
 }
