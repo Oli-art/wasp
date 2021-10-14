@@ -13,17 +13,18 @@ use wasmlib::*;
 
 use crate::*;
 
-pub const IDX_PARAM_MACHINE_ID:      usize = 0;
-pub const IDX_PARAM_OWNER:           usize = 1;
-pub const IDX_PARAM_RESPONSE:        usize = 2;
-pub const IDX_PARAM_TASK:            usize = 3;
-pub const IDX_PARAM_TASK_ID:         usize = 4;
-pub const IDX_PARAM_TRANSACTION_ID:  usize = 5;
-pub const IDX_RESULT_OWNER:          usize = 6;
-pub const IDX_STATE_NUMBER_OF_TASKS: usize = 7;
-pub const IDX_STATE_OWNER:           usize = 8;
+pub const IDX_PARAM_MACHINE_ID:     usize = 0;
+pub const IDX_PARAM_OWNER:          usize = 1;
+pub const IDX_PARAM_RESPONSE:       usize = 2;
+pub const IDX_PARAM_TASK:           usize = 3;
+pub const IDX_PARAM_TASK_ID:        usize = 4;
+pub const IDX_PARAM_TRANSACTION_ID: usize = 5;
+pub const IDX_RESULT_OWNER:         usize = 6;
+pub const IDX_RESULT_TASK:          usize = 7;
+pub const IDX_STATE_OWNER:          usize = 8;
+pub const IDX_STATE_TASKS:          usize = 9;
 
-pub const KEY_MAP_LEN: usize = 9;
+pub const KEY_MAP_LEN: usize = 10;
 
 pub const KEY_MAP: [&str; KEY_MAP_LEN] = [
     PARAM_MACHINE_ID,
@@ -33,8 +34,9 @@ pub const KEY_MAP: [&str; KEY_MAP_LEN] = [
     PARAM_TASK_ID,
     PARAM_TRANSACTION_ID,
     RESULT_OWNER,
-    STATE_NUMBER_OF_TASKS,
+    RESULT_TASK,
     STATE_OWNER,
+    STATE_TASKS,
 ];
 
 pub static mut IDX_MAP: [Key32; KEY_MAP_LEN] = [Key32(0); KEY_MAP_LEN];

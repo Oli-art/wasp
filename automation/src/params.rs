@@ -125,3 +125,25 @@ impl MutableRequestMachineParams {
         ScMutableTask::new(self.id, idx_map(IDX_PARAM_TASK))
     }
 }
+
+#[derive(Clone, Copy)]
+pub struct ImmutableGetTasksParams {
+    pub(crate) id: i32,
+}
+
+impl ImmutableGetTasksParams {
+    pub fn task_id(&self) -> ScImmutableInt32 {
+        ScImmutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutableGetTasksParams {
+    pub(crate) id: i32,
+}
+
+impl MutableGetTasksParams {
+    pub fn task_id(&self) -> ScMutableInt32 {
+        ScMutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
+    }
+}

@@ -42,6 +42,12 @@ pub struct GetOwnerCall {
     pub results: ImmutableGetOwnerResults,
 }
 
+pub struct GetTasksCall {
+    pub func:    ScView,
+    pub params:  MutableGetTasksParams,
+    pub results: ImmutableGetTasksResults,
+}
+
 pub struct ScFuncs {
 }
 
@@ -84,6 +90,15 @@ impl ScFuncs {
             results: ImmutableGetOwnerResults { id: 0 },
         };
         f.func.set_ptrs(ptr::null_mut(), &mut f.results.id);
+        f
+    }
+    pub fn get_tasks(_ctx: & dyn ScViewCallContext) -> GetTasksCall {
+        let mut f = GetTasksCall {
+            func:    ScView::new(HSC_NAME, HVIEW_GET_TASKS),
+            params:  MutableGetTasksParams { id: 0 },
+            results: ImmutableGetTasksResults { id: 0 },
+        };
+        f.func.set_ptrs(&mut f.params.id, &mut f.results.id);
         f
     }
 }

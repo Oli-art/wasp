@@ -15,18 +15,51 @@ use crate::*;
 use crate::keys::*;
 use crate::types::*;
 
+pub struct ArrayOfImmutableTask {
+    pub(crate) obj_id: i32,
+}
+
+impl ArrayOfImmutableTask {
+    pub fn length(&self) -> i32 {
+        get_length(self.obj_id)
+    }
+
+    pub fn get_task(&self, index: i32) -> ImmutableTask {
+        ImmutableTask { obj_id: self.obj_id, key_id: Key32(index) }
+    }
+}
+
 #[derive(Clone, Copy)]
 pub struct ImmutableautomationState {
     pub(crate) id: i32,
 }
 
 impl ImmutableautomationState {
-    pub fn number_of_tasks(&self) -> ScImmutableInt16 {
-        ScImmutableInt16::new(self.id, idx_map(IDX_STATE_NUMBER_OF_TASKS))
-    }
-
     pub fn owner(&self) -> ScImmutableAgentID {
         ScImmutableAgentID::new(self.id, idx_map(IDX_STATE_OWNER))
+    }
+
+    pub fn tasks(&self) -> ArrayOfImmutableTask {
+        let arr_id = get_object_id(self.id, idx_map(IDX_STATE_TASKS), TYPE_ARRAY | TYPE_BYTES);
+        ArrayOfImmutableTask { obj_id: arr_id }
+    }
+}
+
+pub struct ArrayOfMutableTask {
+    pub(crate) obj_id: i32,
+}
+
+impl ArrayOfMutableTask {
+    pub fn clear(&self) {
+        clear(self.obj_id);
+    }
+
+    pub fn length(&self) -> i32 {
+        get_length(self.obj_id)
+    }
+
+    pub fn get_task(&self, index: i32) -> MutableTask {
+        MutableTask { obj_id: self.obj_id, key_id: Key32(index) }
     }
 }
 
@@ -36,11 +69,12 @@ pub struct MutableautomationState {
 }
 
 impl MutableautomationState {
-    pub fn number_of_tasks(&self) -> ScMutableInt16 {
-        ScMutableInt16::new(self.id, idx_map(IDX_STATE_NUMBER_OF_TASKS))
-    }
-
     pub fn owner(&self) -> ScMutableAgentID {
         ScMutableAgentID::new(self.id, idx_map(IDX_STATE_OWNER))
+    }
+
+    pub fn tasks(&self) -> ArrayOfMutableTask {
+        let arr_id = get_object_id(self.id, idx_map(IDX_STATE_TASKS), TYPE_ARRAY | TYPE_BYTES);
+        ArrayOfMutableTask { obj_id: arr_id }
     }
 }

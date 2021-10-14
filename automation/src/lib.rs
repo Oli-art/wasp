@@ -38,6 +38,7 @@ fn on_load() {
     exports.add_func(FUNC_MACHINE_RESPONSE, func_machine_response_thunk);
     exports.add_func(FUNC_REQUEST_MACHINE, func_request_machine_thunk);
     exports.add_view(VIEW_GET_OWNER, view_get_owner_thunk);
+    exports.add_view(VIEW_GET_TASKS, view_get_tasks_thunk);
 
     unsafe {
         for i in 0..KEY_MAP_LEN {
@@ -145,6 +146,30 @@ fn view_get_owner_thunk(ctx: &ScViewContext) {
     };
     view_get_owner(ctx, &f);
     ctx.log("automation.viewGetOwner ok");
+}
+
+pub struct GetTasksContext {
+    params:  ImmutableGetTasksParams,
+    results: MutableGetTasksResults,
+    state:   ImmutableautomationState,
+}
+
+fn view_get_tasks_thunk(ctx: &ScViewContext) {
+    ctx.log("automation.viewGetTasks");
+    let f = GetTasksContext {
+        params: ImmutableGetTasksParams {
+            id: OBJ_ID_PARAMS,
+        },
+        results: MutableGetTasksResults {
+            id: OBJ_ID_RESULTS,
+        },
+        state: ImmutableautomationState {
+            id: OBJ_ID_STATE,
+        },
+    };
+    ctx.require(f.params.task_id().exists(), "missing mandatory taskId");
+    view_get_tasks(ctx, &f);
+    ctx.log("automation.viewGetTasks ok");
 }
 
 // @formatter:on

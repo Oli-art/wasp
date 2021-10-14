@@ -35,3 +35,25 @@ impl MutableGetOwnerResults {
         ScMutableAgentID::new(self.id, idx_map(IDX_RESULT_OWNER))
     }
 }
+
+#[derive(Clone, Copy)]
+pub struct ImmutableGetTasksResults {
+    pub(crate) id: i32,
+}
+
+impl ImmutableGetTasksResults {
+    pub fn task(&self) -> ScImmutableTask {
+        ScImmutableTask::new(self.id, idx_map(IDX_RESULT_TASK))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutableGetTasksResults {
+    pub(crate) id: i32,
+}
+
+impl MutableGetTasksResults {
+    pub fn task(&self) -> ScMutableTask {
+        ScMutableTask::new(self.id, idx_map(IDX_RESULT_TASK))
+    }
+}
