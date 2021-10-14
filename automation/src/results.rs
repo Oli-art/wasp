@@ -37,22 +37,22 @@ impl MutableGetOwnerResults {
 }
 
 #[derive(Clone, Copy)]
-pub struct ImmutableGetTasksResults {
+pub struct ImmutableGetTaskResults {
     pub(crate) id: i32,
 }
 
-impl ImmutableGetTasksResults {
+impl ImmutableGetTaskResults {
     pub fn task(&self) -> ScImmutableTask {
         ScImmutableTask::new(self.id, idx_map(IDX_RESULT_TASK))
     }
 }
 
 #[derive(Clone, Copy)]
-pub struct MutableGetTasksResults {
+pub struct MutableGetTaskResults {
     pub(crate) id: i32,
 }
 
-impl MutableGetTasksResults {
+impl MutableGetTaskResults {
     pub fn task(&self) -> ScMutableTask {
         ScMutableTask::new(self.id, idx_map(IDX_RESULT_TASK))
     }

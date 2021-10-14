@@ -5,8 +5,9 @@
 		"Task": {
 			"machineId": "AgentID // machinhe that is beign called",
     		"issuer": "AgentID // agent calling the machine",
-    		"task": "String // task to be done",
-    		"amount": "Int64 // amount in iotas beign offered for task"
+    		"instruction": "String // task to be done",
+    		"amount": "Int64 // amount in iotas beign offered for task",
+			"status": "String // status of the task. Can be: requested, approved, rejected, waiting or completed"
 		}
 	},
 	"typedefs": {},
@@ -20,22 +21,36 @@
 				"owner": "?AgentID // optional owner of this smart contract"
 			}
 		},
-		"requestMachine": {
+		"issuerRequestTask": {
 			"params": {
 				"machineId" :"AgentID // machinhe that is beign called",
-				"task" :"Task // task that is requested to be done by machine"
+				"instruction" :"String // instruction that is requested to be done by machine"
 			}
 		},
 		"machineResponse": {
 			"params": {
-				"transactionId" :"String // id of roverCall smart contract inteaction",
+				"taskId" :"Int32 // id of task",
 				"response" :"Int16 // 0 for job reyection, 1 for job acceptance. Need boolean type here"
 			}
 		},
 		"machineFinnishTask": {
 			"params": {
-				"taskId" :"Int32 // id of task",
-				"response" :"Int16 // 0 for job reyection, 1 for job acceptance. Need boolean type here"
+				"taskId" :"Int32 // id of task"
+			}
+		},
+		"machineQuitTask": {
+			"params": {
+				"taskId" :"Int32 // id of task"
+			}
+		},
+		"issuerConfirmResult": {
+			"params": {
+				"taskId" :"Int32 // id of task"
+			}
+		},
+		"issuerRejectResult": {
+			"params": {
+				"taskId" :"Int32 // id of task"
 			}
 		}
 	},
@@ -45,12 +60,12 @@
 				"owner": "AgentID // current owner of this smart contract"
 			}
 		},
-		"getTasks": {
+		"getTask": {
 			"params": {
 				"taskId" :"Int32 // id of task"
 			},
 			"results": {
-				"task": "Task // the task that has the taskId"
+				"task": "Task // returns all the tasks"
 			}
 		}
 	}

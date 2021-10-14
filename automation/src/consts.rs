@@ -15,12 +15,11 @@ pub const SC_NAME:        &str = "automation";
 pub const SC_DESCRIPTION: &str = "IOTA Smart Contract for interaction with autonomous mashines";
 pub const HSC_NAME:       ScHname = ScHname(0x370c9916);
 
-pub const PARAM_MACHINE_ID:     &str = "machineId";
-pub const PARAM_OWNER:          &str = "owner";
-pub const PARAM_RESPONSE:       &str = "response";
-pub const PARAM_TASK:           &str = "task";
-pub const PARAM_TASK_ID:        &str = "taskId";
-pub const PARAM_TRANSACTION_ID: &str = "transactionId";
+pub const PARAM_INSTRUCTION: &str = "instruction";
+pub const PARAM_MACHINE_ID:  &str = "machineId";
+pub const PARAM_OWNER:       &str = "owner";
+pub const PARAM_RESPONSE:    &str = "response";
+pub const PARAM_TASK_ID:     &str = "taskId";
 
 pub const RESULT_OWNER: &str = "owner";
 pub const RESULT_TASK:  &str = "task";
@@ -28,18 +27,24 @@ pub const RESULT_TASK:  &str = "task";
 pub const STATE_OWNER: &str = "owner";
 pub const STATE_TASKS: &str = "tasks";
 
-pub const FUNC_INIT:                 &str = "init";
-pub const FUNC_MACHINE_FINNISH_TASK: &str = "machineFinnishTask";
-pub const FUNC_MACHINE_RESPONSE:     &str = "machineResponse";
-pub const FUNC_REQUEST_MACHINE:      &str = "requestMachine";
-pub const VIEW_GET_OWNER:            &str = "getOwner";
-pub const VIEW_GET_TASKS:            &str = "getTasks";
+pub const FUNC_INIT:                  &str = "init";
+pub const FUNC_ISSUER_CONFIRM_RESULT: &str = "issuerConfirmResult";
+pub const FUNC_ISSUER_REJECT_RESULT:  &str = "issuerRejectResult";
+pub const FUNC_ISSUER_REQUEST_TASK:   &str = "issuerRequestTask";
+pub const FUNC_MACHINE_FINNISH_TASK:  &str = "machineFinnishTask";
+pub const FUNC_MACHINE_QUIT_TASK:     &str = "machineQuitTask";
+pub const FUNC_MACHINE_RESPONSE:      &str = "machineResponse";
+pub const VIEW_GET_OWNER:             &str = "getOwner";
+pub const VIEW_GET_TASK:              &str = "getTask";
 
-pub const HFUNC_INIT:                 ScHname = ScHname(0x1f44d644);
-pub const HFUNC_MACHINE_FINNISH_TASK: ScHname = ScHname(0xea91dce8);
-pub const HFUNC_MACHINE_RESPONSE:     ScHname = ScHname(0xa531d2f5);
-pub const HFUNC_REQUEST_MACHINE:      ScHname = ScHname(0x6eeb930c);
-pub const HVIEW_GET_OWNER:            ScHname = ScHname(0x137107a6);
-pub const HVIEW_GET_TASKS:            ScHname = ScHname(0xded380f0);
+pub const HFUNC_INIT:                  ScHname = ScHname(0x1f44d644);
+pub const HFUNC_ISSUER_CONFIRM_RESULT: ScHname = ScHname(0x0c71b8f7);
+pub const HFUNC_ISSUER_REJECT_RESULT:  ScHname = ScHname(0x58d2bad2);
+pub const HFUNC_ISSUER_REQUEST_TASK:   ScHname = ScHname(0x34614f97);
+pub const HFUNC_MACHINE_FINNISH_TASK:  ScHname = ScHname(0xea91dce8);
+pub const HFUNC_MACHINE_QUIT_TASK:     ScHname = ScHname(0x00097a0c);
+pub const HFUNC_MACHINE_RESPONSE:      ScHname = ScHname(0xa531d2f5);
+pub const HVIEW_GET_OWNER:             ScHname = ScHname(0x137107a6);
+pub const HVIEW_GET_TASK:              ScHname = ScHname(0x9c2ef2eb);
 
 // @formatter:on

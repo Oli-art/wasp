@@ -13,10 +13,11 @@ use wasmlib::*;
 use wasmlib::host::*;
 
 pub struct Task {
-    pub amount:     i64,       // amount in iotas beign offered for task
-    pub issuer:     ScAgentID, // agent calling the machine
-    pub machine_id: ScAgentID, // machinhe that is beign called
-    pub task:       String,    // task to be done
+    pub amount:      i64,       // amount in iotas beign offered for task
+    pub instruction: String,    // task to be done
+    pub issuer:      ScAgentID, // agent calling the machine
+    pub machine_id:  ScAgentID, // machinhe that is beign called
+    pub status:      String,    // status of the task. Can be: requested, approved, rejected, waiting or completed
 }
 
 impl Task {
@@ -24,18 +25,20 @@ impl Task {
         let mut decode = BytesDecoder::new(bytes);
         Task {
             amount: decode.int64(),
+            instruction: decode.string(),
             issuer: decode.agent_id(),
             machine_id: decode.agent_id(),
-            task: decode.string(),
+            status: decode.string(),
         }
     }
 
     pub fn to_bytes(&self) -> Vec<u8> {
         let mut encode = BytesEncoder::new();
         encode.int64(self.amount);
+        encode.string(&self.instruction);
         encode.agent_id(&self.issuer);
         encode.agent_id(&self.machine_id);
-        encode.string(&self.task);
+        encode.string(&self.status);
         return encode.data();
     }
 }

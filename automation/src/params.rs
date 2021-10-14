@@ -37,15 +37,85 @@ impl MutableInitParams {
 }
 
 #[derive(Clone, Copy)]
+pub struct ImmutableIssuerConfirmResultParams {
+    pub(crate) id: i32,
+}
+
+impl ImmutableIssuerConfirmResultParams {
+    pub fn task_id(&self) -> ScImmutableInt32 {
+        ScImmutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutableIssuerConfirmResultParams {
+    pub(crate) id: i32,
+}
+
+impl MutableIssuerConfirmResultParams {
+    pub fn task_id(&self) -> ScMutableInt32 {
+        ScMutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct ImmutableIssuerRejectResultParams {
+    pub(crate) id: i32,
+}
+
+impl ImmutableIssuerRejectResultParams {
+    pub fn task_id(&self) -> ScImmutableInt32 {
+        ScImmutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutableIssuerRejectResultParams {
+    pub(crate) id: i32,
+}
+
+impl MutableIssuerRejectResultParams {
+    pub fn task_id(&self) -> ScMutableInt32 {
+        ScMutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct ImmutableIssuerRequestTaskParams {
+    pub(crate) id: i32,
+}
+
+impl ImmutableIssuerRequestTaskParams {
+    pub fn instruction(&self) -> ScImmutableString {
+        ScImmutableString::new(self.id, idx_map(IDX_PARAM_INSTRUCTION))
+    }
+
+    pub fn machine_id(&self) -> ScImmutableAgentID {
+        ScImmutableAgentID::new(self.id, idx_map(IDX_PARAM_MACHINE_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutableIssuerRequestTaskParams {
+    pub(crate) id: i32,
+}
+
+impl MutableIssuerRequestTaskParams {
+    pub fn instruction(&self) -> ScMutableString {
+        ScMutableString::new(self.id, idx_map(IDX_PARAM_INSTRUCTION))
+    }
+
+    pub fn machine_id(&self) -> ScMutableAgentID {
+        ScMutableAgentID::new(self.id, idx_map(IDX_PARAM_MACHINE_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
 pub struct ImmutableMachineFinnishTaskParams {
     pub(crate) id: i32,
 }
 
 impl ImmutableMachineFinnishTaskParams {
-    pub fn response(&self) -> ScImmutableInt16 {
-        ScImmutableInt16::new(self.id, idx_map(IDX_PARAM_RESPONSE))
-    }
-
     pub fn task_id(&self) -> ScImmutableInt32 {
         ScImmutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
     }
@@ -57,10 +127,28 @@ pub struct MutableMachineFinnishTaskParams {
 }
 
 impl MutableMachineFinnishTaskParams {
-    pub fn response(&self) -> ScMutableInt16 {
-        ScMutableInt16::new(self.id, idx_map(IDX_PARAM_RESPONSE))
+    pub fn task_id(&self) -> ScMutableInt32 {
+        ScMutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
     }
+}
 
+#[derive(Clone, Copy)]
+pub struct ImmutableMachineQuitTaskParams {
+    pub(crate) id: i32,
+}
+
+impl ImmutableMachineQuitTaskParams {
+    pub fn task_id(&self) -> ScImmutableInt32 {
+        ScImmutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
+    }
+}
+
+#[derive(Clone, Copy)]
+pub struct MutableMachineQuitTaskParams {
+    pub(crate) id: i32,
+}
+
+impl MutableMachineQuitTaskParams {
     pub fn task_id(&self) -> ScMutableInt32 {
         ScMutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
     }
@@ -76,8 +164,8 @@ impl ImmutableMachineResponseParams {
         ScImmutableInt16::new(self.id, idx_map(IDX_PARAM_RESPONSE))
     }
 
-    pub fn transaction_id(&self) -> ScImmutableString {
-        ScImmutableString::new(self.id, idx_map(IDX_PARAM_TRANSACTION_ID))
+    pub fn task_id(&self) -> ScImmutableInt32 {
+        ScImmutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
     }
 }
 
@@ -91,58 +179,28 @@ impl MutableMachineResponseParams {
         ScMutableInt16::new(self.id, idx_map(IDX_PARAM_RESPONSE))
     }
 
-    pub fn transaction_id(&self) -> ScMutableString {
-        ScMutableString::new(self.id, idx_map(IDX_PARAM_TRANSACTION_ID))
+    pub fn task_id(&self) -> ScMutableInt32 {
+        ScMutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
     }
 }
 
 #[derive(Clone, Copy)]
-pub struct ImmutableRequestMachineParams {
+pub struct ImmutableGetTaskParams {
     pub(crate) id: i32,
 }
 
-impl ImmutableRequestMachineParams {
-    pub fn machine_id(&self) -> ScImmutableAgentID {
-        ScImmutableAgentID::new(self.id, idx_map(IDX_PARAM_MACHINE_ID))
-    }
-
-    pub fn task(&self) -> ScImmutableTask {
-        ScImmutableTask::new(self.id, idx_map(IDX_PARAM_TASK))
-    }
-}
-
-#[derive(Clone, Copy)]
-pub struct MutableRequestMachineParams {
-    pub(crate) id: i32,
-}
-
-impl MutableRequestMachineParams {
-    pub fn machine_id(&self) -> ScMutableAgentID {
-        ScMutableAgentID::new(self.id, idx_map(IDX_PARAM_MACHINE_ID))
-    }
-
-    pub fn task(&self) -> ScMutableTask {
-        ScMutableTask::new(self.id, idx_map(IDX_PARAM_TASK))
-    }
-}
-
-#[derive(Clone, Copy)]
-pub struct ImmutableGetTasksParams {
-    pub(crate) id: i32,
-}
-
-impl ImmutableGetTasksParams {
+impl ImmutableGetTaskParams {
     pub fn task_id(&self) -> ScImmutableInt32 {
         ScImmutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
     }
 }
 
 #[derive(Clone, Copy)]
-pub struct MutableGetTasksParams {
+pub struct MutableGetTaskParams {
     pub(crate) id: i32,
 }
 
-impl MutableGetTasksParams {
+impl MutableGetTaskParams {
     pub fn task_id(&self) -> ScMutableInt32 {
         ScMutableInt32::new(self.id, idx_map(IDX_PARAM_TASK_ID))
     }

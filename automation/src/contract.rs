@@ -22,9 +22,29 @@ pub struct InitCall {
     pub params: MutableInitParams,
 }
 
+pub struct IssuerConfirmResultCall {
+    pub func:   ScFunc,
+    pub params: MutableIssuerConfirmResultParams,
+}
+
+pub struct IssuerRejectResultCall {
+    pub func:   ScFunc,
+    pub params: MutableIssuerRejectResultParams,
+}
+
+pub struct IssuerRequestTaskCall {
+    pub func:   ScFunc,
+    pub params: MutableIssuerRequestTaskParams,
+}
+
 pub struct MachineFinnishTaskCall {
     pub func:   ScFunc,
     pub params: MutableMachineFinnishTaskParams,
+}
+
+pub struct MachineQuitTaskCall {
+    pub func:   ScFunc,
+    pub params: MutableMachineQuitTaskParams,
 }
 
 pub struct MachineResponseCall {
@@ -32,20 +52,15 @@ pub struct MachineResponseCall {
     pub params: MutableMachineResponseParams,
 }
 
-pub struct RequestMachineCall {
-    pub func:   ScFunc,
-    pub params: MutableRequestMachineParams,
-}
-
 pub struct GetOwnerCall {
     pub func:    ScView,
     pub results: ImmutableGetOwnerResults,
 }
 
-pub struct GetTasksCall {
+pub struct GetTaskCall {
     pub func:    ScView,
-    pub params:  MutableGetTasksParams,
-    pub results: ImmutableGetTasksResults,
+    pub params:  MutableGetTaskParams,
+    pub results: ImmutableGetTaskResults,
 }
 
 pub struct ScFuncs {
@@ -60,10 +75,42 @@ impl ScFuncs {
         f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
         f
     }
+    pub fn issuer_confirm_result(_ctx: & dyn ScFuncCallContext) -> IssuerConfirmResultCall {
+        let mut f = IssuerConfirmResultCall {
+            func:   ScFunc::new(HSC_NAME, HFUNC_ISSUER_CONFIRM_RESULT),
+            params: MutableIssuerConfirmResultParams { id: 0 },
+        };
+        f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
+        f
+    }
+    pub fn issuer_reject_result(_ctx: & dyn ScFuncCallContext) -> IssuerRejectResultCall {
+        let mut f = IssuerRejectResultCall {
+            func:   ScFunc::new(HSC_NAME, HFUNC_ISSUER_REJECT_RESULT),
+            params: MutableIssuerRejectResultParams { id: 0 },
+        };
+        f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
+        f
+    }
+    pub fn issuer_request_task(_ctx: & dyn ScFuncCallContext) -> IssuerRequestTaskCall {
+        let mut f = IssuerRequestTaskCall {
+            func:   ScFunc::new(HSC_NAME, HFUNC_ISSUER_REQUEST_TASK),
+            params: MutableIssuerRequestTaskParams { id: 0 },
+        };
+        f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
+        f
+    }
     pub fn machine_finnish_task(_ctx: & dyn ScFuncCallContext) -> MachineFinnishTaskCall {
         let mut f = MachineFinnishTaskCall {
             func:   ScFunc::new(HSC_NAME, HFUNC_MACHINE_FINNISH_TASK),
             params: MutableMachineFinnishTaskParams { id: 0 },
+        };
+        f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
+        f
+    }
+    pub fn machine_quit_task(_ctx: & dyn ScFuncCallContext) -> MachineQuitTaskCall {
+        let mut f = MachineQuitTaskCall {
+            func:   ScFunc::new(HSC_NAME, HFUNC_MACHINE_QUIT_TASK),
+            params: MutableMachineQuitTaskParams { id: 0 },
         };
         f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
         f
@@ -76,14 +123,6 @@ impl ScFuncs {
         f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
         f
     }
-    pub fn request_machine(_ctx: & dyn ScFuncCallContext) -> RequestMachineCall {
-        let mut f = RequestMachineCall {
-            func:   ScFunc::new(HSC_NAME, HFUNC_REQUEST_MACHINE),
-            params: MutableRequestMachineParams { id: 0 },
-        };
-        f.func.set_ptrs(&mut f.params.id, ptr::null_mut());
-        f
-    }
     pub fn get_owner(_ctx: & dyn ScViewCallContext) -> GetOwnerCall {
         let mut f = GetOwnerCall {
             func:    ScView::new(HSC_NAME, HVIEW_GET_OWNER),
@@ -92,11 +131,11 @@ impl ScFuncs {
         f.func.set_ptrs(ptr::null_mut(), &mut f.results.id);
         f
     }
-    pub fn get_tasks(_ctx: & dyn ScViewCallContext) -> GetTasksCall {
-        let mut f = GetTasksCall {
-            func:    ScView::new(HSC_NAME, HVIEW_GET_TASKS),
-            params:  MutableGetTasksParams { id: 0 },
-            results: ImmutableGetTasksResults { id: 0 },
+    pub fn get_task(_ctx: & dyn ScViewCallContext) -> GetTaskCall {
+        let mut f = GetTaskCall {
+            func:    ScView::new(HSC_NAME, HVIEW_GET_TASK),
+            params:  MutableGetTaskParams { id: 0 },
+            results: ImmutableGetTaskResults { id: 0 },
         };
         f.func.set_ptrs(&mut f.params.id, &mut f.results.id);
         f
