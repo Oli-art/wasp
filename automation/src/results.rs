@@ -42,8 +42,8 @@ pub struct ImmutableGetTaskResults {
 }
 
 impl ImmutableGetTaskResults {
-    pub fn task(&self) -> ScImmutableTask {
-        ScImmutableTask::new(self.id, idx_map(IDX_RESULT_TASK))
+    pub fn status(&self) -> ScImmutableString {
+        ScImmutableString::new(self.id, idx_map(IDX_RESULT_STATUS))
     }
 }
 
@@ -53,7 +53,7 @@ pub struct MutableGetTaskResults {
 }
 
 impl MutableGetTaskResults {
-    pub fn task(&self) -> ScMutableTask {
-        ScMutableTask::new(self.id, idx_map(IDX_RESULT_TASK))
+    pub fn status(&self) -> ScMutableString {
+        ScMutableString::new(self.id, idx_map(IDX_RESULT_STATUS))
     }
 }

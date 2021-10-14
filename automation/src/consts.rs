@@ -21,8 +21,8 @@ pub const PARAM_OWNER:       &str = "owner";
 pub const PARAM_RESPONSE:    &str = "response";
 pub const PARAM_TASK_ID:     &str = "taskId";
 
-pub const RESULT_OWNER: &str = "owner";
-pub const RESULT_TASK:  &str = "task";
+pub const RESULT_OWNER:  &str = "owner";
+pub const RESULT_STATUS: &str = "status";
 
 pub const STATE_OWNER: &str = "owner";
 pub const STATE_TASKS: &str = "tasks";

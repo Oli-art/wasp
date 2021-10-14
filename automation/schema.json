@@ -65,7 +65,7 @@
 				"taskId" :"Int32 // id of task"
 			},
 			"results": {
-				"task": "Task // returns all the tasks"
+				"status": "String // returns the task status"
 			}
 		}
 	}

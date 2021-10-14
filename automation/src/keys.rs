@@ -19,7 +19,7 @@ pub const IDX_PARAM_OWNER:       usize = 2;
 pub const IDX_PARAM_RESPONSE:    usize = 3;
 pub const IDX_PARAM_TASK_ID:     usize = 4;
 pub const IDX_RESULT_OWNER:      usize = 5;
-pub const IDX_RESULT_TASK:       usize = 6;
+pub const IDX_RESULT_STATUS:     usize = 6;
 pub const IDX_STATE_OWNER:       usize = 7;
 pub const IDX_STATE_TASKS:       usize = 8;
 
@@ -32,7 +32,7 @@ pub const KEY_MAP: [&str; KEY_MAP_LEN] = [
     PARAM_RESPONSE,
     PARAM_TASK_ID,
     RESULT_OWNER,
-    RESULT_TASK,
+    RESULT_STATUS,
     STATE_OWNER,
     STATE_TASKS,
 ];

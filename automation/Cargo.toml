@@ -3,8 +3,8 @@ name = "automation"
 description = "IOTA Smart Contract for interaction with autonomous mashines"
 license = "Apache-2.0"
 version = "0.1.0"
-authors = ["Eric Hop <eric@iota.org>"]
-edition = "2018"
+authors = ["Oliver Stehr"]
+edition = "2021"
 repository = "https://github.com/iotaledger/wasp"
 
 [lib]

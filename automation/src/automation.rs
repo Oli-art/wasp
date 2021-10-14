@@ -71,23 +71,24 @@ pub fn func_machine_response(_ctx: &ScFuncContext, _f: &MachineResponseContext) 
     let task = _f.state.tasks().get_task(task_id);
 
     _ctx.require(task.value().machine_id == _ctx.caller(), "Responded to a task assigned to another machine_id");
-    
-
-    let _task = Task{
-        machine_id: task.value().machine_id,
-        issuer: task.value().issuer,
-        instruction: task.value().instruction,
-        amount: task.value().amount,
-        status: "rejected".to_string()
-    };
 
     if response == 1 {
-        _task = Task{
+        let _task = Task{
             machine_id: task.value().machine_id,
             issuer: task.value().issuer,
             instruction: task.value().instruction,
             amount: task.value().amount,
             status: "accepted".to_string()
+        };
+    }
+
+    else {
+        let _task = Task{
+            machine_id: task.value().machine_id,
+            issuer: task.value().issuer,
+            instruction: task.value().instruction,
+            amount: task.value().amount,
+            status: "rejected".to_string()
         };
     }
     
@@ -103,6 +104,7 @@ pub fn view_get_owner(_ctx: &ScViewContext, f: &GetOwnerContext) {
 pub fn view_get_task(_ctx: &ScViewContext, _f: &GetTaskContext) {
     let tasks: ArrayOfImmutableTask = _f.state.tasks();
     let task_id = _f.params.task_id().value();
+    let status = tasks.get_task(task_id).value().status;
 
-    _f.results.task().set_value(tasks.get_task(task_id));
+    _f.results.status().set_value(&status);
 }
