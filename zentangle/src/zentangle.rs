@@ -169,13 +169,19 @@ pub fn func_end_game(ctx: &ScFuncContext, f: &EndGameContext) {
         
         let mut player_boost = f.state.player_boost().get_player_boost(&address).value();
 
-        let transfers: ScTransfers = ScTransfers::iotas((f.state.reward().value() * player_boost.n_valid_tags) / n_rewards );
 
         ctx.log("Iniciando transaccion");
+
+        let d = coreaccounts::ScFuncs::deposit(ctx);
+        d.params.agent_id().set_value(&player_boost.player);
+        d.func.transfer_iotas((f.state.reward().value() * player_boost.n_valid_tags) / n_rewards).call();
+
+        /*
+        let transfers: ScTransfers = ScTransfers::iotas((f.state.reward().value() * player_boost.n_valid_tags) / n_rewards );
         let parms = ScDict::new(&[]);
         parms.set(&string_to_bytes("a"), &player_boost.player.to_bytes());
-        ctx.call(ScHname::new("accounts".as_bytes()), ScHname::new("deposit".as_bytes()), Some(parms), Some(transfers));
-
+        ctx.call(ScHname(0x3c4b5e02), ScHname::new("deposit".as_bytes()), Some(parms), Some(transfers));
+        */
         ctx.log("Terminó transaccion");
         player_boost.n_valid_tags = 0;
         f.state.player_boost().get_player_boost(&address.to_string()).set_value(&player_boost);
@@ -224,12 +230,16 @@ pub fn func_end_game(ctx: &ScFuncContext, f: &EndGameContext) {
             position += 1;
         }
 
-        let transfers: ScTransfers = ScTransfers::iotas(payout as u64);
+        let d = coreaccounts::ScFuncs::deposit(ctx);
+        d.params.agent_id().set_value(&betters_top[i].player.as_agent_id());
+        d.func.transfer_iotas(payout as u64).call();
 
+        /*
+        let transfers: ScTransfers = ScTransfers::iotas(payout as u64);
         let parms = ScDict::new(&[]);
         parms.set(&string_to_bytes("a"), &betters_top[i].player.as_agent_id().to_bytes());
         ctx.call(ScHname::new("accounts".as_bytes()), ScHname::new("deposit".as_bytes()), Some(parms), Some(transfers));
-
+        */
         f.events.paid(
             &betters_top[i].accuracy.to_string(),
             payout as u64,

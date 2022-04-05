@@ -8,6 +8,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/iotaledger/wasp/packages/iscp/colored"
 	"github.com/iotaledger/wasp/packages/wasmvm/wasmsolo"
 	"github.com/iotaledger/wasp/zentangle/go/zentangle"
 	"github.com/stretchr/testify/require"
@@ -93,12 +94,11 @@ func TestPlay2(t *testing.T) {
 		getResults.Func.Call()
 	}
 
-	/*
-		balances := 0
-		for i := 0; i < number_of_players; i++ {
-			balances += int(player[i].Env.GetAddressBalance(ctx.Chain.ChainID.AliasAddress, colored.IOTA))
-		}
-	*/
+	balances := 0
+	for i := 0; i < number_of_players; i++ {
+		balances += int(player[i].Env.GetAddressBalance(ctx.Chain.ChainID.AliasAddress, colored.IOTA))
+	}
+
 }
 
 /*
