@@ -1,0 +1,157 @@
+{
+    "name": "zentangle",
+    "description": "Incentivized AI Training Casino",
+    "events": {
+        "imagetagged": {
+            "address": "String",
+            "imageId": "Uint32",
+            "playsPerImage": "Uint32"
+        },
+        "gameStarted": {
+            "description": "String",
+            "numberOfImages": "Uint32",
+            "reward": "Uint64",
+            "tagsRequiredPerImage": "Uint32"
+        },
+        "gameEnded": {
+        },
+        "paid": {
+            "player": "String",
+            "position": "Uint64",
+            "amount": "Uint64",
+            "boost": "Uint8",
+            "accuracy": "String",
+            "bet": "Uint64"
+        },
+        "playRequested": {
+            "address": "String",
+            "amount": "Uint64",
+            "imageId": "Uint32" 
+        }
+    },
+    "structs": {
+        "TaggedImage": {
+            "imageId": "Int32 // the only signed integer (It is -1 by default)",
+            "player": "Address // player that has tagged this image",
+            "boost": "String // if the tags will be boosted or not",
+            "x": "String // x top-left positions of the Tags",
+            "y": "String // y top-left positions of the Tags",
+            "w": "String // widths of the Tags",
+            "h": "String // heights of the Tags"
+        },
+        "Bet": {
+            "amount": "Uint64",
+            "player": "Address // player placing the bet",
+            "imageId": "Uint32"
+        },
+        "ValidTag": {
+            "player": "Address // player placing the bet",
+            "taggedImage": "Uint32",
+            "playTagId": "Uint32 // Identifier to distinguish different tags in the same play"
+        },
+        "PlayerBoost": {
+            "player": "AgentID // The player's AgentId",
+            "nTags": "Uint64 // Number of tags made by the player in the current round",
+            "nValidTags": "Uint64 // Number of validated tags made by the player in the current round. this is to calculate how much to pay them",
+            "nDoubleBoosts": "Uint64 // Number of 2x boost used in the round",
+            "nTrippleBoosts": "Uint64 // Number of 3x boosts used in the round"
+        }
+    },
+    "typedefs": {},
+    "state": {
+        "owner": "AgentID // current owner of this smart contract",
+        "numberOfImages": "Uint32 // total number of images to tag",
+        "reward": "Uint64 // current reward to split between players",
+        "description": "String // details on how should the images be tagged",
+        "creator": "AgentID // the creator of the game",
+        "playsRequiredPerImage": "Uint32 // Number of times images have to be played for it to be ready",
+        "bets": "Bet[]",
+        "pendingPlay": "map[String]Bet // maps a players address to the Play that has been requested but not completed",
+        "pendingPlays": "Bet[] // TODO: because maps can't be cleared correcly yet",
+        "playsPerImage": "Uint32[] // counts how many times an image has been tagged",
+        "completeImages": "Uint32 // Number of images with all the required plays completed",
+        "taggedImages": "TaggedImage[] // a list with every TaggedImage (many per imageId) TODO: Ideally a nested array when it gets implemented",
+        "validTags": " ValidTag[] // stores the player and imageId of all valid tags",
+        "processedImages": "TaggedImage[]",
+        "playerBoost": "map[String]PlayerBoost // maps an address to the information of the player",
+        "playersBoost": "String[] // TODO: because maps can't be cleared correcly yet. This is a list containing all the playerBoost keys",
+        "totalPlayerTags": "map[String]Uint64 // maps a player's address to the number of tags it has made (to calculate the ingots)."
+    },
+    "funcs": {
+        "init": {
+            "params": {
+                "owner": "AgentID? // optional owner of this smart contract"
+            }
+        },
+        "setOwner": {
+            "access": "owner // current owner of this smart contract",
+            "params": {
+                "owner": "AgentID // new owner of this smart contract"
+            }
+        },
+        "withdraw": {
+            "access": "owner // current owner of this smart contract"
+        },
+        "createGame": {
+            "params": {
+                "numberOfImages": "Uint32 // total number of images to tag",
+                "description": "String // details on how should the images be tagged",
+                "tagsRequiredPerImage": "Uint32? // Images have to be tagged by this amount of players to be ready"
+            }
+        },
+        "requestPlay": {
+            "results": {
+                "imageId": "Uint32"
+            }
+        },
+        "sendTags": {
+            "params": {
+                "inputJson": "String // x, y, h, w and boost values for every annotaiton in the image"
+            },
+            "results": {
+                "imageId": "Uint32 // The id of the next image to tag"
+            }
+        },
+        "endGame": {
+            "params": {
+                "resetPlayerInfo": "Bool? // optional bool to reset players info (boost related), default is 1 (resetting)"
+            }
+        }
+    },
+    "views": {
+        "getOwner": {
+            "results": {
+                "owner": "AgentID // current owner of this smart contract"
+            }
+        },
+        "getPlaysPerImage": {
+            "params": {
+                "imageId": "Uint32"
+            },
+            "results": {
+                "playsPerImage": "Uint32"
+            }
+        },
+        "getResults": {
+            "params": {
+                "imageId": "Uint32"
+            },
+            "results": {
+                "results": "String // x/y/h/w"
+            }
+        },
+        "getPlayerBets": {
+            "results": {
+                "playerBets": "String // a json with all players and their bets"
+            }
+        },
+        "getPlayerInfo": {
+            "params": {
+                "playerAddress": "String"
+            },
+            "results": {
+                "info": "String // a json with the player's info"
+            }
+        }
+    }
+}
